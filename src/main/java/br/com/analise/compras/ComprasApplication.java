@@ -1,13 +1,8 @@
 package br.com.analise.compras;
 
-import br.com.analise.compras.Entity.Categoria;
-import br.com.analise.compras.Entity.Cidade;
-import br.com.analise.compras.Entity.Estado;
-import br.com.analise.compras.Entity.Produto;
-import br.com.analise.compras.repository.CategoriaRepository;
-import br.com.analise.compras.repository.CidadeRepository;
-import br.com.analise.compras.repository.EstadoRepository;
-import br.com.analise.compras.repository.ProdutoRepository;
+import br.com.analise.compras.Entity.*;
+import br.com.analise.compras.Entity.enumemation.TipoClienteEnum;
+import br.com.analise.compras.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -29,6 +24,12 @@ public class ComprasApplication implements CommandLineRunner {
 
 	@Autowired//para nao vim null
 	private EstadoRepository estadoRepository;
+
+	@Autowired
+	private ClienteRepository clienteRepository;
+
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 
 
 	public static void main(String[] args) {
@@ -73,6 +74,18 @@ public class ComprasApplication implements CommandLineRunner {
 
 		estadoRepository.save(Arrays.asList(est1,est2));
 		cidadeRepository.save(Arrays.asList(c1,c2,c3));
+
+		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoClienteEnum.PESSOAFISICA);
+
+		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
+
+		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", c1, cli1);
+		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centros", "38777012", c2, cli1);
+
+		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+
+		clienteRepository.save(cli1);
+		enderecoRepository.save(Arrays.asList(e1, e2));
 
 	}
 }
