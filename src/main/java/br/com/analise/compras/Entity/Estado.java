@@ -1,5 +1,7 @@
 package br.com.analise.compras.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -7,18 +9,19 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "TB_ESTADO")
+@Table(name = "tb_estado")
 @SequenceGenerator(name = "seq_estado",sequenceName = "seq_estado")
 public class Estado implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_estado")
-    @Column(name="ES_ID")
+    @Column(name="es_id")
     private Integer id;
 
-    @Column(name="ES_NOME")
+    @Column(name="es_nome")
     private String Nome;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "estado")    //nome da variavel do estado da clas Cidade
     private List<Cidade>cidades= new ArrayList<>();
 

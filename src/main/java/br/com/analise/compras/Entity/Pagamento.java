@@ -1,30 +1,43 @@
 package br.com.analise.compras.Entity;
 
+
 import br.com.analise.compras.Entity.enumemation.EstadoPagamentoEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name = "TB_PAGAMENTO")
-@SequenceGenerator(name = "seq_pagamento",sequenceName = "seq_pagamento")
+@Table(name = "tb_pagamento")
+@Inheritance(strategy = InheritanceType.JOINED)//Identifica que a estratégia de herança será//
+// “JOINED”, ou seja, será feita uma junção através de chaves estrangeiras.
+@SequenceGenerator(name = "seq_pagamento", sequenceName = "seq_pagamento")
 public class Pagamento implements Serializable{
 
     @Id
-    @Column(name= "pa_id")
+    @Column(name = "pa_id")
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_pagamento")
     private Integer id;
 
-    @Column(name= "pa_estado")
+    @Column(name = "pa_estado")
+    @Enumerated(EnumType.STRING)
     private EstadoPagamentoEnum estado;
 
-    @OneToOne//um para um
+    @JsonIgnore
+    @OneToOne
     @JoinColumn(name = "pe_id")
-    @MapsId//diz que o id que vai definir a chave primaria de pagamento é esse aqui
-    private Pedido pedido;//pedido é a chave primaria de pagamento
+    @MapsId
+    private Pedido pedido;
 
-    public Pagamento() {
+    public Pagamento(){
+
+    }
+
+    public Pagamento(Integer id, EstadoPagamentoEnum estado, Pedido pedido) {
+        this.id = id;
+        this.estado = estado;
+        this.pedido = pedido;
     }
 
     public Integer getId() {
@@ -51,12 +64,6 @@ public class Pagamento implements Serializable{
         this.pedido = pedido;
     }
 
-    public Pagamento(Integer id, EstadoPagamentoEnum estado, Pedido pedido) {
-        this.id = id;
-        this.estado = estado;
-        this.pedido = pedido;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -67,6 +74,7 @@ public class Pagamento implements Serializable{
 
     @Override
     public int hashCode() {
+
         return Objects.hash(id);
     }
 }

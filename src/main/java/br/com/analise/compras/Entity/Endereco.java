@@ -1,5 +1,6 @@
 package br.com.analise.compras.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.javafx.beans.IDProperty;
 
 import javax.persistence.*;
@@ -34,6 +35,7 @@ public class Endereco implements Serializable{
     @JoinColumn(name="ci_id")//cria a chave estrangeira
     private Cidade cidade;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "cl_id")
     private Cliente cliente;

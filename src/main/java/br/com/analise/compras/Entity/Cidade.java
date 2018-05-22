@@ -5,20 +5,20 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name = "TB_CIDADE")
+@Table(name = "tb_cidade")
 @SequenceGenerator(name = "seq_cidade",sequenceName = "seq_cidade")
 public class Cidade implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_cidade")
-    @Column(name = "CI_ID")
+    @Column(name = "ci_id")
     private Integer id;
 
-    @Column(name ="CI_NOME")
+    @Column(name ="ci_nome")
     private String Nome;
 
-    @ManyToOne
-    @JoinColumn(name= "ES_ID")
+    @ManyToOne//(n para 1),
+    @JoinColumn(name= "es_id")
     private Estado estado;
 
     private Cidade(){

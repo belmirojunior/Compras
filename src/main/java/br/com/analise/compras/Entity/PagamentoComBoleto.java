@@ -1,15 +1,23 @@
 package br.com.analise.compras.Entity;
 
 import br.com.analise.compras.Entity.enumemation.EstadoPagamentoEnum;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.Date;
 
 @Entity
+@Table(name = "tb_pagamento_com_boleto")
 public class PagamentoComBoleto extends Pagamento{
 
+    @JsonFormat(pattern = "dd/MM/yyyy")//formatar um modelo padrão
+    @Column(name = "data_vencimento")
     private Date dataVencimento;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")//formatar um modelo padrão
+    @Column(name = "data_pagamento")
     private Date dataPagamento;
 
     public PagamentoComBoleto(){

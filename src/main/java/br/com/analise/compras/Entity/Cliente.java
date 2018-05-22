@@ -1,6 +1,7 @@
 package br.com.analise.compras.Entity;
 
 import br.com.analise.compras.Entity.enumemation.TipoClienteEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -26,6 +27,7 @@ public class Cliente implements Serializable{
     private String cpfOuCnpj;
 
     @Column(name = "cl_tipo_clinte")
+    @Enumerated(EnumType.STRING)
     private TipoClienteEnum tipoCliente;
 
     @ElementCollection
@@ -35,6 +37,7 @@ public class Cliente implements Serializable{
     @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos=new ArrayList<>();
 

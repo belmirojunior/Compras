@@ -1,28 +1,30 @@
 package br.com.analise.compras.service;
 
 import br.com.analise.compras.Entity.Categoria;
+import br.com.analise.compras.Entity.Cliente;
 import br.com.analise.compras.exception.ObjectNotFountException;
 import br.com.analise.compras.repository.CategoriaRepository;
+import br.com.analise.compras.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CategoriaService {
+public class ClienteService {
 
     @Autowired//A anotação @Autowired avisa ao Spring Framework para injetar
     // uma instância de alguma implementação
-    private CategoriaRepository categoriaRepository;
+    private ClienteRepository clienteRepository;
 
-    public Categoria buscarCategoriaPorId(Integer id){
+    public Cliente buscarClientePorId(Integer id){
 
-        Categoria categoria = categoriaRepository.findOne(id);
+        Cliente cliente = clienteRepository.findOne(id);
 
-        if(categoria == null){
-            throw new ObjectNotFountException("O objeto "+ Categoria.class.getName()+
+        if(cliente == null){
+            throw new ObjectNotFountException("O objeto "+ Cliente.class.getName()+
                     " Com ID "+ id+" não foi encontrado");
 
         }
-        return categoria;
+        return cliente;
 
         //return categoriaRepository.findOne(id);
     }
